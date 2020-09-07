@@ -4,10 +4,21 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@prisma/cli": "^2.6.2",
+    "@prisma/client": "^2.6.2",
     "babel-cli": "^6.26.0",
     "babel-node": "^0.0.1-security",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
-    "graphql-yoga": "^1.18.3"
+    "bcryptjs": "^2.4.3",
+    "express-session": "^1.17.1",
+    "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js"
   }
 }

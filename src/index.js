@@ -1,4 +1,7 @@
 import { GraphQLServer } from "graphql-yoga";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const typeDefs = `
 type Query {

@@ -5,27 +5,24 @@ const APP_SECRET = "Help-catServer";
 
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
-  const idCheck = await context.prisma.user.findOne({
-    where: {
-      email: args.email,
-    },
-  });
 
-  if (idCheck) return new Error(`이미 존재하는 이메일입니다.`);
+  try {
+    const user = await context.prisma.user.create({
+      data: {
+        ...args,
+        password,
+      },
+    });
 
-  const user = await context.prisma.user.create({
-    data: {
-      ...args,
-      password,
-    },
-  });
-
-  const token = jwt.sign({ userId: user.userid }, APP_SECRET);
-
-  return {
-    token,
-    user,
-  };
+    return {
+      code: 200,
+      result: user,
+      message: "회원가입에 성공하였습니다.",
+    };
+  } catch (error) {
+    return new Error(error);
+  }
+  // const token = jwt.sign({ userId: user.userid }, APP_SECRET);
 }
 
 module.exports = {

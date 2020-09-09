@@ -9,14 +9,14 @@ datasource db {
 
 model user {
   id         Int      @default(autoincrement()) @id
-  userid     String?
-  password   String?
-  userName   String?
-  nickName   String?
-  gender     String?
-  phone      Int?
-  address    String?
+  userid     String?  @unique
+  password   String
+  userName   String
+  nickName   String?  @unique
+  gender     String
+  phone      Int      @unique
+  address    String
   email      String?  @unique
-  birh       String?
+  birh       String
   created_at DateTime @default(now())
 }

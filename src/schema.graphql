@@ -1,5 +1,5 @@
 type Query {
-  users: [User!]!
+  userAll: [User]
   user: User!
   hello(name: String): String
 }

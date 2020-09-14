@@ -16,6 +16,7 @@ type Mutation {
     email: String!
     birh: String!
   ): res!
+  login(userid: String!, password: String!): AuthPayload!
 }
 
 type User {

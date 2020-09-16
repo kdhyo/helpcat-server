@@ -24,3 +24,7 @@ async function sendWelcomeEmail(user, context) {
   };
   return mailer.sendMail(mailOptions);
 }
+
+module.exports = {
+  sendWelcomeEmail,
+};

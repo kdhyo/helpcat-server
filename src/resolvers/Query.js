@@ -11,7 +11,4 @@ async function userAll(parent, args, context, info) {
   }
 }
 
-module.exports = {
-  hello,
-  userAll,
-};
+export { hello, userAll };

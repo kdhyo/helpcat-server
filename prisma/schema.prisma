@@ -8,15 +8,16 @@ datasource db {
 }
 
 model user {
-  id         Int      @default(autoincrement()) @id
-  userid     String?  @unique
-  password   String
-  userName   String
-  nickName   String?  @unique
-  gender     String
-  phone      Int      @unique
-  address    String
-  email      String?  @unique
-  birh       String
-  created_at DateTime @default(now())
+  id                 Int      @default(autoincrement()) @id
+  email              String?  @unique
+  emailvalidated     Boolean? @default(false)
+  validateEmailToken String?  @unique
+  password           String
+  userName           String
+  nickName           String?  @unique
+  gender             String
+  phone              Int      @unique
+  address            String
+  birh               String
+  createdAt          DateTime @default(now())
 }

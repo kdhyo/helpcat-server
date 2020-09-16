@@ -6,14 +6,13 @@ type Query {
 
 type Mutation {
   signup(
-    userid: ID!
+    email: String!
     password: String!
     userName: String!
     nickName: String!
     gender: String!
     phone: Int!
     address: String!
-    email: String!
     birh: String!
   ): res!
   login(userid: String!, password: String!): AuthPayload!
@@ -21,14 +20,17 @@ type Mutation {
 
 type User {
   id: ID!
-  userid: String
+  email: String
+  emailvalidated: Boolean
+  validateEmailToken: String
+  password: String
   userName: String
   nickName: String
   gender: String
   phone: Int
   address: String
-  email: String
   birh: String
+  createdAt: DateTime
 }
 
 type AuthPayload {

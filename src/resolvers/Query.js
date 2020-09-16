@@ -11,4 +11,7 @@ async function userAll(parent, args, context, info) {
   }
 }
 
-export { hello, userAll };
+exports = {
+  hello,
+  userAll,
+};

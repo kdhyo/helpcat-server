@@ -30,7 +30,7 @@ type User {
   phone: Int
   address: String
   birh: String
-  createdAt: DateTime
+  createdAt: String
 }
 
 type AuthPayload {

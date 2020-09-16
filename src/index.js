@@ -2,7 +2,6 @@ import { GraphQLServer } from "graphql-yoga";
 import { PrismaClient } from "@prisma/client";
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
-import typeDefs from "./schema.graphql";
 
 const prisma = new PrismaClient();
 
@@ -12,7 +11,7 @@ const resolvers = {
 };
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: "./src/schema.graphql",
   resolvers,
   context: (request) => {
     return {

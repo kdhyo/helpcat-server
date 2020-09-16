@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { APP_SECRET } from "../utils";
+import { APP_SECRET, getUserId } from "../utils";
 
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
@@ -48,4 +48,7 @@ async function login(parent, args, context, info) {
 
 async function pwdChange(parent, args, context, info) {}
 
-export { signup, login };
+exports = {
+  signup,
+  login,
+};

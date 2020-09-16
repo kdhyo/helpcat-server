@@ -16,6 +16,8 @@ type Mutation {
     birh: String!
   ): res!
   login(userid: String!, password: String!): AuthPayload!
+  UserDelete: res!
+  updatePassword(oldPassword: String, newPassword: String!): User!
 }
 
 type User {

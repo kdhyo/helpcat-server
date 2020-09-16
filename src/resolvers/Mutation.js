@@ -46,9 +46,50 @@ async function login(parent, args, context, info) {
   };
 }
 
-async function pwdChange(parent, args, context, info) {}
+async function UserDelete(parent, args, context, info) {
+  try {
+    const userId = getUserId(context);
+    await prisma.user.delete({
+      where: { id: userId },
+    });
+
+    return {
+      code: 200,
+      result: user,
+      message: "회원가입에 성공하였습니다.",
+    };
+  } catch (error) {
+    return new Error(error);
+  }
+}
+
+async function updatePassword(parent, { oldPassword, newPassword }, context, info) {
+  const userId = getUserId(context);
+
+  const user = await prisma.user.findOne({ where: { id: userId } });
+
+  const oldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+
+  if (!oldPasswordValid) {
+    throw new Error("패스워드가 일치하지 않습니다.");
+  }
+
+  const newPasswordHash = await bcrypt.hash(newPassword, 10);
+
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { password: newPasswordHash },
+    });
+  } catch (error) {
+    return new Error(error);
+  }
+  return user;
+}
 
 exports = {
   signup,
   login,
+  UserDelete,
+  updatePassword,
 };

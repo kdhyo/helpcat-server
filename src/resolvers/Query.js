@@ -11,7 +11,7 @@ async function userAll(parent, args, context, info) {
   }
 }
 
-exports = {
+module.exports = {
   hello,
   userAll,
 };

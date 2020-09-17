@@ -1,15 +1,19 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { APP_SECRET, getUserId } from "../utils";
+import crypto from "crypto";
 
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
+  const validateEmailToken = crypto.randomBytes(64).toString("hex");
+  console.log(validateEmailToken);
 
   try {
     const user = await context.prisma.user.create({
       data: {
-        ...args,
+        validateEmailToken,
         password,
+        ...args,
       },
     });
 
@@ -63,7 +67,12 @@ async function UserDelete(parent, args, context, info) {
   }
 }
 
-async function updatePassword(parent, { oldPassword, newPassword }, context, info) {
+async function updatePassword(
+  parent,
+  { oldPassword, newPassword },
+  context,
+  info
+) {
   const userId = getUserId(context);
 
   const user = await prisma.user.findOne({ where: { id: userId } });
@@ -87,7 +96,7 @@ async function updatePassword(parent, { oldPassword, newPassword }, context, inf
   return user;
 }
 
-exports = {
+module.exports = {
   signup,
   login,
   UserDelete,

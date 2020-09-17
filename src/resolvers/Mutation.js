@@ -11,9 +11,9 @@ async function signup(parent, args, context, info) {
   try {
     const user = await context.prisma.user.create({
       data: {
+        ...args,
         validateEmailToken,
         password,
-        ...args,
       },
     });
 
@@ -30,7 +30,7 @@ async function signup(parent, args, context, info) {
 async function login(parent, args, context, info) {
   const user = await context.prisma.user.findOne({
     where: {
-      userid: args.userid,
+      email: args.userid,
     },
   });
   if (!user) return new Error("아이디가 존재하지 않습니다.");
@@ -53,14 +53,14 @@ async function login(parent, args, context, info) {
 async function UserDelete(parent, args, context, info) {
   try {
     const userId = getUserId(context);
-    await prisma.user.delete({
+    console.log(userId);
+    await context.prisma.user.delete({
       where: { id: userId },
     });
 
     return {
       code: 200,
-      result: user,
-      message: "회원가입에 성공하였습니다.",
+      message: "회원이 탈퇴되었습니다.",
     };
   } catch (error) {
     return new Error(error);
@@ -73,27 +73,27 @@ async function updatePassword(
   context,
   info
 ) {
-  const userId = getUserId(context);
-
-  const user = await prisma.user.findOne({ where: { id: userId } });
-
-  const oldPasswordValid = await bcrypt.compare(oldPassword, user.password);
-
-  if (!oldPasswordValid) {
-    throw new Error("패스워드가 일치하지 않습니다.");
-  }
-
-  const newPasswordHash = await bcrypt.hash(newPassword, 10);
-
   try {
-    await prisma.user.update({
+    const userId = getUserId(context);
+    const user = await context.prisma.user.findOne({ where: { id: userId } });
+    const oldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!oldPasswordValid) {
+      throw new Error("패스워드가 일치하지 않습니다.");
+    }
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
+    await context.prisma.user.update({
       where: { id: userId },
       data: { password: newPasswordHash },
     });
+
+    return {
+      code: 200,
+      result: user,
+      message: "비밀번호가 변경되었습니다.",
+    };
   } catch (error) {
     return new Error(error);
   }
-  return user;
 }
 
 module.exports = {

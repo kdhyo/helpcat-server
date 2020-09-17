@@ -17,7 +17,7 @@ type Mutation {
   ): res!
   login(userid: String!, password: String!): AuthPayload!
   UserDelete: res!
-  updatePassword(oldPassword: String, newPassword: String!): User!
+  updatePassword(oldPassword: String, newPassword: String!): res!
 }
 
 type User {

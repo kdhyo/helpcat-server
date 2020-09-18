@@ -9,7 +9,7 @@ async function signup(parent, args, context, info) {
   console.log(validateEmailToken);
 
   try {
-    const user = await context.prisma.user.create({
+    await context.prisma.user.create({
       data: {
         ...args,
         validateEmailToken,
@@ -17,11 +17,7 @@ async function signup(parent, args, context, info) {
       },
     });
 
-    return {
-      code: 200,
-      result: user,
-      message: "회원가입에 성공하였습니다.",
-    };
+    return true;
   } catch (error) {
     return new Error(error);
   }

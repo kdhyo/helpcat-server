@@ -14,7 +14,7 @@ type Mutation {
     phone: Int!
     address: String!
     birh: String!
-  ): res!
+  ): Boolean!
   login(userid: String!, password: String!): AuthPayload!
   UserDelete: res!
   updatePassword(oldPassword: String, newPassword: String!): res!

@@ -5,8 +5,8 @@ async function sendWelcomeEmail(user, context) {
   const mailer = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: config.userMail,
-      pass: config.passMail,
+      user: process.env.USER_MAIL,
+      pass: process.env.PWD_MAIL,
     },
   });
 

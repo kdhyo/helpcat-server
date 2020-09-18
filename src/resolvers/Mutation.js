@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { APP_SECRET, getUserId } from "../utils";
+import { getUserId } from "../utils";
 import crypto from "crypto";
 
 async function signup(parent, args, context, info) {
@@ -42,7 +42,7 @@ async function login(parent, args, context, info) {
     {
       userId: user.id,
     },
-    APP_SECRET
+    process.env.JWT_SECRET
   );
   return {
     token,
@@ -67,12 +67,7 @@ async function UserDelete(parent, args, context, info) {
   }
 }
 
-async function updatePassword(
-  parent,
-  { oldPassword, newPassword },
-  context,
-  info
-) {
+async function updatePassword(parent, { oldPassword, newPassword }, context, info) {
   try {
     const userId = getUserId(context);
     const user = await context.prisma.user.findOne({ where: { id: userId } });

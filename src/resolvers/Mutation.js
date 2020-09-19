@@ -36,7 +36,7 @@ async function login(parent, args, context, info) {
 
   const token = jwt.sign(
     {
-      userId: user.id,
+      email: user.email,
     },
     process.env.JWT_SECRET
   );

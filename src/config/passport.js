@@ -1,5 +1,8 @@
 import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -8,24 +11,26 @@ const jwtOptions = {
 
 const verifyUser = async (payload, done) => {
   try {
-    const user = await prisma.user({ id: payload.id });
-    if (user !== null) {
+    console.log(payload);
+    const user = await prisma.user.findOne({ where: { email: payload.email } });
+    if (user) {
       return done(null, user);
     } else {
       return done(null, false);
     }
   } catch (error) {
+    console.log(error);
     return done(error, false);
   }
 };
 
-export const authenticateJwt = (req, res, next) =>
+export const authenticateJwt = (request, res, next) =>
   passport.authenticate("jwt", { sessions: false }, (error, user) => {
     if (user) {
-      req.user = user;
+      request.user = user;
     }
     next();
-  })(req, res, next);
+  })(request, res, next);
 
 passport.use(new Strategy(jwtOptions, verifyUser));
 passport.initialize();

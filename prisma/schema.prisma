@@ -16,7 +16,7 @@ model user {
   userName           String
   nickName           String?  @unique
   gender             String
-  phone              Int      @unique
+  phone              String
   address            String
   birh               String
   createdAt          DateTime @default(now())

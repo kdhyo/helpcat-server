@@ -11,7 +11,7 @@ type Mutation {
     userName: String!
     nickName: String!
     gender: String!
-    phone: Int!
+    phone: String!
     address: String!
     birh: String!
   ): Boolean!
@@ -29,7 +29,7 @@ type User {
   userName: String
   nickName: String
   gender: String
-  phone: Int
+  phone: String
   address: String
   birh: String
   createdAt: String

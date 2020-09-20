@@ -7,6 +7,7 @@ import "./config/passport";
 import { authenticateJwt } from "./config/passport";
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
+import { isAuthenticated } from "./config/middlewares";
 
 const PORT = process.env.PORT || 4000;
 
@@ -24,6 +25,7 @@ const server = new GraphQLServer({
     return {
       ...request,
       prisma,
+      isAuthenticated,
     };
   },
 });

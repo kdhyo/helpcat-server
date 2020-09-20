@@ -13,11 +13,11 @@ async function userAll(parent, args, context, info) {
   }
 }
 
-async function user(parent, args, { requset, prisma }, info) {
+async function user(parent, args, context, info) {
   try {
-    isAuthenticated(requset);
-    console.log(requset.user);
-    return requset.user;
+    isAuthenticated(context.request.res.req);
+    console.log(context.request.res.req.user);
+    return context.request.res.req.user;
   } catch (error) {
     return new Error(error);
   }

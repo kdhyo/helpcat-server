@@ -16,8 +16,8 @@ type Mutation {
     birh: String!
   ): Boolean!
   login(userid: String!, password: String!): AuthPayload!
-  UserDelete: res!
-  updatePassword(oldPassword: String, newPassword: String!): res!
+  UserDelete: Boolean!
+  updatePassword(oldPassword: String, newPassword: String!): Boolean!
 }
 
 type User {
@@ -38,10 +38,4 @@ type User {
 type AuthPayload {
   token: String
   user: User
-}
-
-type res {
-  code: Int!
-  result: User
-  message: String!
 }

@@ -13,11 +13,10 @@ async function userAll(parent, args, context, info) {
   }
 }
 
-async function user(parent, args, context, info) {
+async function user(parent, args, { request }, info) {
   try {
-    isAuthenticated(context.request.res.req);
-    console.log(context.request.res.req.user);
-    return context.request.res.req.user;
+    const user = isAuthenticated(request.res.req);
+    return user;
   } catch (error) {
     return new Error(error);
   }

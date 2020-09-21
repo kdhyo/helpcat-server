@@ -1,12 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { getUserId } from "../utils";
+import { isAuthenticated } from "../config/middlewares";
 import crypto from "crypto";
 
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
   const validateEmailToken = crypto.randomBytes(64).toString("hex");
-  console.log(validateEmailToken);
 
   try {
     await context.prisma.user.create({
@@ -46,42 +45,33 @@ async function login(parent, args, context, info) {
   };
 }
 
-async function UserDelete(parent, args, context, info) {
+async function UserDelete(parent, args, { request, prisma }, info) {
   try {
-    const userId = getUserId(context);
-    console.log(userId);
-    await context.prisma.user.delete({
-      where: { id: userId },
+    const user = isAuthenticated(request.res.req);
+    await prisma.user.delete({
+      where: { id: user.id },
     });
 
-    return {
-      code: 200,
-      message: "회원이 탈퇴되었습니다.",
-    };
+    return true;
   } catch (error) {
     return new Error(error);
   }
 }
 
-async function updatePassword(parent, { oldPassword, newPassword }, context, info) {
+async function updatePassword(parent, { oldPassword, newPassword }, { request, prisma }, info) {
   try {
-    const userId = getUserId(context);
-    const user = await context.prisma.user.findOne({ where: { id: userId } });
-    const oldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    const oldUser = isAuthenticated(request.res.req);
+    const oldPasswordValid = await bcrypt.compare(oldPassword, oldUser.password);
     if (!oldPasswordValid) {
       throw new Error("패스워드가 일치하지 않습니다.");
     }
     const newPasswordHash = await bcrypt.hash(newPassword, 10);
-    await context.prisma.user.update({
-      where: { id: userId },
+    await prisma.user.update({
+      where: { id: oldUser.id },
       data: { password: newPasswordHash },
     });
 
-    return {
-      code: 200,
-      result: user,
-      message: "비밀번호가 변경되었습니다.",
-    };
+    return true;
   } catch (error) {
     return new Error(error);
   }

@@ -8,7 +8,7 @@ async function signup(parent, args, context, info) {
   const validateEmailToken = crypto.randomBytes(64).toString("hex");
 
   try {
-    await context.prisma.user.create({
+    const user = await context.prisma.user.create({
       data: {
         ...args,
         validateEmailToken,
@@ -16,7 +16,17 @@ async function signup(parent, args, context, info) {
       },
     });
 
-    return true;
+    const token = jwt.sign(
+      {
+        email: user.email,
+      },
+      process.env.JWT_SECRET
+    );
+
+    return {
+      token,
+      user,
+    };
   } catch (error) {
     return new Error(error);
   }

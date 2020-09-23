@@ -2,15 +2,15 @@
 
 ### 사용 목록
 
-**Graphql-yoga** 기반 서버 셋팅
-**prisma2 Mysql** ORM 기반 셋팅
-**nodemon** 을 적용한 'yarn run dev' 로 실시간 서버재시작
-**cors** 방지
-**morgan** 패키지를 활용한 로그기록
-**babel**패키지를 통한 ES6 이상문법 적용
-**dotenv**패키지를 통한 .env 사용
-**jsonwebtoken** 회원인증을 위해 사용
-**passport / passport-jwt**미들웨어를 사용한 인증 구현
+**Graphql-yoga** 기반 서버 셋팅  
+**prisma2 Mysql** ORM 기반 셋팅  
+**nodemon** 을 적용한 'yarn run dev' 로 실시간 서버재시작  
+**cors** 방지  
+**morgan** 패키지를 활용한 로그기록  
+**babel**패키지를 통한 ES6 이상문법 적용  
+**dotenv**패키지를 통한 .env 사용  
+**jsonwebtoken** 회원인증을 위해 사용  
+**passport / passport-jwt**미들웨어를 사용한 인증 구현  
 **bcryptjs / crypto** 통한 암호화기법 적용
 
 ### resolvers 구현 목록

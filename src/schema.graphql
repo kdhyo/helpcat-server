@@ -3,7 +3,6 @@ scalar DateTime
 type Query {
   userAll: [User]
   user: User!
-  hello(name: String): String
 }
 
 type Mutation {

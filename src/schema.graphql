@@ -30,6 +30,10 @@ type Mutation {
   ): Service!
 }
 
+type Subscription {
+  newService: Service
+}
+
 type User {
   id: ID!
   email: String

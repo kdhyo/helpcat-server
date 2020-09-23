@@ -7,6 +7,7 @@ import "./config/passport";
 import { authenticateJwt } from "./config/passport";
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
+import Subscription from "./resolvers/Subscription";
 import Service from "./resolvers/Service";
 import { isAuthenticated } from "./config/middlewares";
 
@@ -18,6 +19,7 @@ const pubsub = new PubSub();
 const resolvers = {
   Query,
   Mutation,
+  Subscription,
   Service,
 };
 

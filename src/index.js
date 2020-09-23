@@ -1,4 +1,4 @@
-import { GraphQLServer } from "graphql-yoga";
+import { GraphQLServer, PubSub } from "graphql-yoga";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import logger from "morgan";
@@ -7,6 +7,7 @@ import "./config/passport";
 import { authenticateJwt } from "./config/passport";
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
+import Service from "./resolvers/Service";
 import { isAuthenticated } from "./config/middlewares";
 
 const PORT = process.env.PORT || 4000;
@@ -14,9 +15,11 @@ const PORT = process.env.PORT || 4000;
 const resolvers = {
   Query,
   Mutation,
+  Service,
 };
 
 const prisma = new PrismaClient();
+const pubsub = new PubSub();
 
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
@@ -26,6 +29,7 @@ const server = new GraphQLServer({
       ...request,
       prisma,
       isAuthenticated,
+      pubsub,
     };
   },
 });

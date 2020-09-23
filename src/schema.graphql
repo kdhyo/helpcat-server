@@ -1,3 +1,5 @@
+scalar DateTime
+
 type Query {
   userAll: [User]
   user: User!
@@ -18,6 +20,14 @@ type Mutation {
   login(userid: String!, password: String!): AuthPayload!
   UserDelete: Boolean!
   updatePassword(oldPassword: String, newPassword: String!): Boolean!
+  serviceUproad(
+    title: String!
+    contents: String!
+    price: Int
+    address: String
+    startAt: String
+    endAt: String
+  ): Service!
 }
 
 type User {
@@ -32,10 +42,23 @@ type User {
   phone: String
   address: String
   birh: String
-  createdAt: String
+  createdAt: DateTime
 }
 
 type AuthPayload {
   token: String
   user: User
+}
+
+type Service {
+  id: ID
+  title: String
+  contents: String
+  address: String
+  price: Int
+  progress: Boolean
+  startAt: DateTime
+  endAt: DateTime
+  reqUser: User
+  ansUser: User
 }

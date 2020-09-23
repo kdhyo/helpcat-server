@@ -11,7 +11,7 @@ const jwtOptions = {
 
 const verifyUser = async (payload, done) => {
   try {
-    const user = await prisma.user.findOne({ where: { email: payload.email } });
+    const user = await prisma.user.findOne({ where: { id: payload.userId } });
     if (user) {
       return done(null, user);
     } else {

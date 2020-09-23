@@ -18,7 +18,7 @@ async function signup(parent, args, context, info) {
 
     const token = jwt.sign(
       {
-        email: user.email,
+        userId: user.id,
       },
       process.env.JWT_SECRET
     );
@@ -45,7 +45,7 @@ async function login(parent, args, context, info) {
 
   const token = jwt.sign(
     {
-      email: user.email,
+      userId: user.id,
     },
     process.env.JWT_SECRET
   );
@@ -87,9 +87,30 @@ async function updatePassword(parent, { oldPassword, newPassword }, { request, p
   }
 }
 
+// 서비스 글 생성
+async function serviceUproad(parent, args, { request, prisma }, info) {
+  try {
+    const user = isAuthenticated(request.res.req);
+    const userId = user.id;
+
+    const service = await prisma.service.create({
+      data: {
+        ...args,
+        reqUser: { connect: { id: userId } },
+      },
+    });
+
+    console.log(service);
+    return service;
+  } catch (error) {
+    return new Error(error);
+  }
+}
+
 module.exports = {
   signup,
   login,
   UserDelete,
   updatePassword,
+  serviceUproad,
 };

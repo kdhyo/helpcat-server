@@ -12,14 +12,14 @@ import { isAuthenticated } from "./config/middlewares";
 
 const PORT = process.env.PORT || 4000;
 
+const prisma = new PrismaClient();
+const pubsub = new PubSub();
+
 const resolvers = {
   Query,
   Mutation,
   Service,
 };
-
-const prisma = new PrismaClient();
-const pubsub = new PubSub();
 
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",

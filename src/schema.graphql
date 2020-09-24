@@ -3,6 +3,7 @@ scalar DateTime
 type Query {
   userAll: [User]
   user: User!
+  serviceAll: [Service!]
 }
 
 type Mutation {
@@ -28,6 +29,7 @@ type Mutation {
     endAt: String
   ): Service!
   validateEmail(validateEmailToken: String!): AuthPayload!
+  serviceDelete(id: Int!): Boolean!
 }
 
 type Subscription {

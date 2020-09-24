@@ -1,12 +1,8 @@
 import { isAuthenticated } from "../config/middlewares";
 
 async function userAll(parent, args, context, info) {
-  try {
-    const users = await context.prisma.user.findMany({});
-    return users;
-  } catch (error) {
-    return new Error(error);
-  }
+  const users = await context.prisma.user.findMany({});
+  return users;
 }
 
 async function user(parent, args, { request }, info) {
@@ -18,7 +14,13 @@ async function user(parent, args, { request }, info) {
   }
 }
 
+async function serviceAll(parent, args, context, info) {
+  const services = context.prisma.service.findMany();
+  return services;
+}
+
 module.exports = {
   userAll,
   user,
+  serviceAll,
 };

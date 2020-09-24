@@ -38,13 +38,13 @@ async function login(parent, args, context, info) {
 
   const pwdCheck = await bcrypt.compare(args.password, user.password);
   if (!pwdCheck) return new Error("비밀번호가 올바르지 않습니다.");
-  if (!user.emailvalidated) {
-    // 인증 이메일 전송
-    sendWelcomeEmail(user, context);
-    return new Error(
-      "인증 메일을 보내드렸습니다. 이메일 인증해주시길 바랍니다."
-    );
-  }
+  // if (!user.emailvalidated) {
+  //   // 인증 이메일 전송
+  //   sendWelcomeEmail(user, context);
+  //   return new Error(
+  //     "인증 메일을 보내드렸습니다. 이메일 인증해주시길 바랍니다."
+  //   );
+  // }
 
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
   return {
@@ -97,28 +97,35 @@ async function updatePassword(
 
 // 이메일 인증 후 로그인
 async function validateEmail(parent, args, context, info) {
-  const userCheck = await context.prisma.user.findOne({
-    where: {
-      validateEmailToken: args.validateEmailToken,
-    },
-  });
+  try {
+    const userCheck = await context.prisma.user.findOne({
+      where: {
+        validateEmailToken: args.validateEmailToken,
+      },
+    });
 
-  if (!userCheck) {
-    return new Error(`존재하지 않는 유저 입니다.`);
-  } else {
-    if (userCheck.emailvalidated) {
-      return new Error(`올바르지 않은 접근입니다.`);
+    console.log(userCheck);
+
+    if (!userCheck) {
+      return new Error(`존재하지 않는 유저 입니다.`);
+    } else {
+      if (userCheck.emailvalidated) {
+        return new Error(`올바르지 않은 접근입니다.`);
+      }
     }
+  } catch (error) {
+    return ` try ${error}`;
   }
 
   try {
-    const user = await context.prisma.update({
+    const user = await context.prisma.user.update({
       where: {
         validateEmailToken: args.validateEmailToken,
       },
       data: { emailvalidated: true },
     });
 
+    console.log(user);
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
     return {

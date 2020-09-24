@@ -1,5 +1,11 @@
 import { isAuthenticated } from "../config/middlewares";
-import { signup, login, UserDelete, updatePassword } from "./auth";
+import {
+  signup,
+  login,
+  UserDelete,
+  updatePassword,
+  validateEmail,
+} from "./auth";
 
 // 서비스 글 생성
 async function serviceUproad(parent, args, { request, prisma, pubsub }, info) {
@@ -23,10 +29,14 @@ async function serviceUproad(parent, args, { request, prisma, pubsub }, info) {
   }
 }
 
+// 서비스 글 삭제
+// async function serviceDelete(parent, args, { request, prisma, pubsub }, info)
+
 module.exports = {
   signup,
   login,
   UserDelete,
   updatePassword,
   serviceUproad,
+  validateEmail,
 };

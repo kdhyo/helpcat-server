@@ -8,37 +8,37 @@ datasource db {
 }
 
 model service {
-  id                           Int      @default(autoincrement()) @id
-  reqUserId                    Int?
-  ansUserId                    Int?
-  title                        String?
-  contents                     String?
-  address                      String?
-  price                        Int?
-  progress                     Boolean? @default(false)
-  createdAt                    DateTime @default(now())
-  startAt                      DateTime @default(now())
-  endAt                        DateTime @default(now())
-  user_service_ansUserIdTouser user?    @relation("service_ansUserIdTouser", fields: [ansUserId], references: [id])
-  user_service_reqUserIdTouser user?    @relation("service_reqUserIdTouser", fields: [reqUserId], references: [id])
+  id        Int      @default(autoincrement()) @id
+  reqUserId Int?
+  ansUserId Int?
+  title     String?
+  contents  String?
+  address   String?
+  price     Int?
+  progress  Boolean? @default(false)
+  createdAt DateTime @default(now())
+  startAt   DateTime @default(now())
+  endAt     DateTime @default(now())
+  ansUser   user?    @relation("service_ansUserIdTouser", fields: [ansUserId], references: [id])
+  reqUser   user?    @relation("service_reqUserIdTouser", fields: [reqUserId], references: [id])
 
   @@index([ansUserId], name: "ansUserId")
   @@index([reqUserId], name: "reqUserId")
 }
 
 model user {
-  id                              Int       @default(autoincrement()) @id
-  email                           String?   @unique
-  emailvalidated                  Boolean?  @default(false)
-  validateEmailToken              String?   @unique
-  password                        String
-  userName                        String
-  nickName                        String?   @unique
-  gender                          String
-  phone                           String
-  address                         String
-  birh                            String
-  createdAt                       DateTime  @default(now())
-  service_service_ansUserIdTouser service[] @relation("service_ansUserIdTouser")
-  service_service_reqUserIdTouser service[] @relation("service_reqUserIdTouser")
+  id                 Int       @default(autoincrement()) @id
+  email              String?   @unique
+  emailvalidated     Boolean?  @default(false)
+  validateEmailToken String?   @unique
+  password           String
+  userName           String
+  nickName           String?   @unique
+  gender             String
+  phone              String
+  address            String
+  birh               String
+  createdAt          DateTime  @default(now())
+  ansUsers           service[] @relation("service_ansUserIdTouser")
+  reqUsers           service[] @relation("service_reqUserIdTouser")
 }

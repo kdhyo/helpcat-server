@@ -40,4 +40,6 @@ server.express.use(cors());
 server.express.use(logger("dev"));
 server.express.use(authenticateJwt);
 
-server.start({ port: PORT }, () => console.log(`🚀 Server is running on localhost:${PORT}`));
+server.start({ port: PORT }, () =>
+  console.log(`🚀 Server is running on localhost:${PORT}`)
+);

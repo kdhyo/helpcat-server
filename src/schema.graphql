@@ -25,11 +25,20 @@ type Mutation {
     contents: String!
     price: Int
     address: String
-    startAt: String
-    endAt: String
+    startAt: DateTime
+    endAt: DateTime
   ): Service!
   validateEmail(validateEmailToken: String!): AuthPayload!
   serviceDelete(id: Int!): Boolean!
+  editService(
+    id: Int!
+    title: String!
+    contents: String!
+    price: Int
+    address: String
+    startAt: DateTime
+    endAt: DateTime
+  ): Boolean!
 }
 
 type Subscription {

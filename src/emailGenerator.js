@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import config from "./config/config";
 
 async function sendWelcomeEmail(user, context) {
   const mailer = nodemailer.createTransport({
@@ -11,15 +10,14 @@ async function sendWelcomeEmail(user, context) {
   });
 
   const mailOptions = {
-    to: user.email,
-    from: config.userMail,
+    to: user.email, // 받는 사람 이메일
+    from: process.env.USER_MAIL, // 보내는 사람 이메일
     subject: "HELP CAT 이메일 인증",
     html: `
-      <div>hello ${user.name}</div>
-      <div>Welcome in the HELP CAT.</div>
-        <div>Please find link to validate your email.
-           ${ctx.request.headers.origin}/validateEmail?validateEmailToken=${user.validateEmailToken}
-        </div>
+      <div>안녕하세요! ${user.userName}님</div><br>
+      <div>HelpCat 회원인증 메일입니다.</div>
+      <div>이메일 인증을 원하시면 아래 버튼을 클릭해주세요.</div><br>
+      <a href="${context.request.headers.origin}/validateEmail?validateEmailToken=${user.validateEmailToken}">이메일인증</a>
     `,
   };
   return mailer.sendMail(mailOptions);

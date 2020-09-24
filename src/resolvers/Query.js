@@ -19,7 +19,6 @@ async function user(parent, args, { request }, info) {
 }
 
 module.exports = {
-  hello,
   userAll,
   user,
 };

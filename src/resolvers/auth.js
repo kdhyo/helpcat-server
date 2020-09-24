@@ -2,7 +2,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { isAuthenticated } from "../config/middlewares";
 import crypto from "crypto";
+import { sendWelcomeEmail } from "../emailGenerator";
 
+// 회원가입
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
   const validateEmailToken = crypto.randomBytes(64).toString("hex");
@@ -16,22 +18,16 @@ async function signup(parent, args, context, info) {
       },
     });
 
-    const token = jwt.sign(
-      {
-        userId: user.id,
-      },
-      process.env.JWT_SECRET
-    );
+    // 인증 이메일 전송
+    sendWelcomeEmail(user, context);
 
-    return {
-      token,
-      user,
-    };
+    return true;
   } catch (error) {
-    return new Error(error);
+    return error;
   }
 }
 
+// 로그인
 async function login(parent, args, context, info) {
   const user = await context.prisma.user.findOne({
     where: {
@@ -42,19 +38,22 @@ async function login(parent, args, context, info) {
 
   const pwdCheck = await bcrypt.compare(args.password, user.password);
   if (!pwdCheck) return new Error("비밀번호가 올바르지 않습니다.");
+  if (!user.emailvalidated) {
+    // 인증 이메일 전송
+    sendWelcomeEmail(user, context);
+    return new Error(
+      "인증 메일을 보내드렸습니다. 이메일 인증해주시길 바랍니다."
+    );
+  }
 
-  const token = jwt.sign(
-    {
-      userId: user.id,
-    },
-    process.env.JWT_SECRET
-  );
+  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
   return {
     token,
     user,
   };
 }
 
+//유저 삭제
 async function UserDelete(parent, args, { request, prisma }, info) {
   try {
     const user = isAuthenticated(request.res.req);
@@ -64,16 +63,25 @@ async function UserDelete(parent, args, { request, prisma }, info) {
 
     return true;
   } catch (error) {
-    return new Error(error);
+    return error;
   }
 }
 
-async function updatePassword(parent, { oldPassword, newPassword }, { request, prisma }, info) {
+// 유저 패스워드 변경
+async function updatePassword(
+  parent,
+  { oldPassword, newPassword },
+  { request, prisma },
+  info
+) {
   try {
     const oldUser = isAuthenticated(request.res.req);
-    const oldPasswordValid = await bcrypt.compare(oldPassword, oldUser.password);
+    const oldPasswordValid = await bcrypt.compare(
+      oldPassword,
+      oldUser.password
+    );
     if (!oldPasswordValid) {
-      throw new Error("패스워드가 일치하지 않습니다.");
+      return new Error("패스워드가 일치하지 않습니다.");
     }
     const newPasswordHash = await bcrypt.hash(newPassword, 10);
     await prisma.user.update({
@@ -83,7 +91,42 @@ async function updatePassword(parent, { oldPassword, newPassword }, { request, p
 
     return true;
   } catch (error) {
-    return new Error(error);
+    return error;
+  }
+}
+
+// 이메일 인증 후 로그인
+async function validateEmail(parent, args, context, info) {
+  const userCheck = await context.prisma.user.findOne({
+    where: {
+      validateEmailToken: args.validateEmailToken,
+    },
+  });
+
+  if (!userCheck) {
+    return new Error(`존재하지 않는 유저 입니다.`);
+  } else {
+    if (userCheck.emailvalidated) {
+      return new Error(`올바르지 않은 접근입니다.`);
+    }
+  }
+
+  try {
+    const user = await context.prisma.update({
+      where: {
+        validateEmailToken: args.validateEmailToken,
+      },
+      data: { emailvalidated: true },
+    });
+
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+
+    return {
+      token,
+      user,
+    };
+  } catch (error) {
+    return error;
   }
 }
 
@@ -92,4 +135,5 @@ module.exports = {
   login,
   UserDelete,
   updatePassword,
+  validateEmail,
 };

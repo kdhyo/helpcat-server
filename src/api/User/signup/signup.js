@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { sendWelcomeEmail } from "../../../emailGenerator";
+import { sendWelcomeEmail } from "../../../config/emailGenerator";
 
 export default {
   Mutation: {

@@ -6,6 +6,11 @@ enum ServiceOrderBy {
   desc
 }
 
+type AuthPayload {
+  token: String
+  user: User
+}
+
 type User {
   id: ID!
   email: Email!
@@ -19,11 +24,6 @@ type User {
   address: String
   birh: String
   createdAt: DateTime
-}
-
-type AuthPayload {
-  token: String
-  user: User
 }
 
 type Service {

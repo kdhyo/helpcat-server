@@ -1,0 +1,10 @@
+type Mutation {
+  addService(
+    title: String!
+    contents: String!
+    price: Int
+    address: String
+    startAt: DateTime
+    endAt: DateTime
+  ): Service!
+}

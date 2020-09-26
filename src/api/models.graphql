@@ -1,27 +1,9 @@
 scalar DateTime
 scalar Email
 
-type Query {
-  userAll: [User]
-  serviceAll: [Service!]
-}
-
-type Mutation {
-  validateEmail(validateEmailToken: String!): AuthPayload!
-  serviceDelete(id: Int!): Boolean!
-  editService(
-    id: Int!
-    title: String!
-    contents: String!
-    price: Int
-    address: String
-    startAt: DateTime
-    endAt: DateTime
-  ): Boolean!
-}
-
-type Subscription {
-  newService: Service
+enum ServiceOrderBy {
+  asc
+  desc
 }
 
 type User {

@@ -1,0 +1,11 @@
+type Mutation {
+  editService(
+    id: Int!
+    title: String!
+    contents: String!
+    price: Int!
+    address: String!
+    startAt: DateTime!
+    endAt: DateTime!
+  ): Boolean!
+}

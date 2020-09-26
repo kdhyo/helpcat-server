@@ -1,0 +1,3 @@
+type Query {
+  showService(orderBy: ServiceOrderBy!): [Service]
+}

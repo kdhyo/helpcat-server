@@ -2,7 +2,6 @@ scalar DateTime
 
 type Query {
   userAll: [User]
-  user: User!
   serviceAll: [Service!]
 }
 

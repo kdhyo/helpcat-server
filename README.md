@@ -12,6 +12,7 @@
 **jsonwebtoken** 회원인증을 위해 사용  
 **passport / passport-jwt**미들웨어를 사용한 인증 구현  
 **bcryptjs / crypto** 통한 암호화기법 적용
+**nodemailer** 를 활용한 이메일인증 구현
 
 ### resolvers 구현 목록
 

@@ -38,13 +38,14 @@ async function login(parent, args, context, info) {
 
   const pwdCheck = await bcrypt.compare(args.password, user.password);
   if (!pwdCheck) return new Error("비밀번호가 올바르지 않습니다.");
-  // if (!user.emailvalidated) {
-  //   // 인증 이메일 전송
-  //   sendWelcomeEmail(user, context);
-  //   return new Error(
-  //     "인증 메일을 보내드렸습니다. 이메일 인증해주시길 바랍니다."
-  //   );
-  // }
+
+  if (!user.emailvalidated) {
+    // 인증 이메일 전송
+    sendWelcomeEmail(user, context);
+    return new Error(
+      "인증 메일을 보내드렸습니다. 이메일 인증해주시길 바랍니다."
+    );
+  }
 
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
   return {

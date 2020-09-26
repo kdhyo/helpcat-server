@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-async function sendWelcomeEmail(user, context) {
+async function sendWelcomeEmail(user) {
   const mailer = nodemailer.createTransport({
     service: "Gmail",
     auth: {
@@ -16,8 +16,8 @@ async function sendWelcomeEmail(user, context) {
     html: `
       <div>안녕하세요! ${user.userName}님</div><br>
       <div>HelpCat 회원인증 메일입니다.</div>
-      <div>이메일 인증을 원하시면 아래 버튼을 클릭해주세요.</div><br>
-      <a href="${context.request.headers.origin}/validateEmail?validateEmailToken=${user.validateEmailToken}">이메일인증</a>
+      <div>이메일 인증을 원하시면 아래 문자를 홈페이지에 적어주시길 바랍니다.</div><br>
+      <h1>${user.validateEmailToken}</h1>
     `,
   };
   return mailer.sendMail(mailOptions);

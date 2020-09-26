@@ -1,4 +1,5 @@
 scalar DateTime
+scalar Email
 
 type Query {
   userAll: [User]
@@ -7,7 +8,7 @@ type Query {
 
 type Mutation {
   signup(
-    email: String!
+    email: Email!
     password: String!
     userName: String!
     nickName: String!
@@ -16,7 +17,7 @@ type Mutation {
     address: String!
     birh: String!
   ): Boolean!
-  login(userid: String!, password: String!): AuthPayload!
+  login(userid: Email!, password: String!): AuthPayload!
   UserDelete: Boolean!
   updatePassword(oldPassword: String, newPassword: String!): Boolean!
   serviceUproad(
@@ -46,7 +47,7 @@ type Subscription {
 
 type User {
   id: ID!
-  email: String
+  email: Email!
   emailvalidated: Boolean
   validateEmailToken: String
   password: String

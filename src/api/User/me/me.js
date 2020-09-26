@@ -1,7 +1,8 @@
 export default {
   Query: {
     me: (_, __, { request, isAuthenticated }) => {
-      return (user = isAuthenticated(request.res.req));
+      const user = isAuthenticated(request.res.req);
+      return user;
     },
   },
 };

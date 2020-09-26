@@ -1,6 +1,6 @@
 type Mutation {
   signup(
-    email: String!
+    email: Email!
     password: String!
     userName: String!
     nickName: String!

@@ -7,27 +7,6 @@ type Query {
 }
 
 type Mutation {
-  signup(
-    email: Email!
-    password: String!
-    userName: String!
-    nickName: String!
-    gender: String!
-    phone: String!
-    address: String!
-    birh: String!
-  ): Boolean!
-  login(userid: Email!, password: String!): AuthPayload!
-  UserDelete: Boolean!
-  updatePassword(oldPassword: String, newPassword: String!): Boolean!
-  serviceUproad(
-    title: String!
-    contents: String!
-    price: Int
-    address: String
-    startAt: DateTime
-    endAt: DateTime
-  ): Service!
   validateEmail(validateEmailToken: String!): AuthPayload!
   serviceDelete(id: Int!): Boolean!
   editService(

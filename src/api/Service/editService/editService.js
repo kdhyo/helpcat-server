@@ -1,6 +1,6 @@
 export default {
   Mutation: {
-    editService: async (_, args, { prisma, isAuthenticated }) => {
+    editService: async (_, args, { prisma, isAuthenticated, request }) => {
       const user = isAuthenticated(request.res.req);
       const userId = user.id;
       const { id, title, contents, address, price, startAt, endAt } = args;

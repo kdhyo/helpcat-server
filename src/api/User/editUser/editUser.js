@@ -3,7 +3,6 @@ export default {
     editUser: async (_, args, { prisma, isAuthenticated, request }) => {
       const user = isAuthenticated(request.res.req);
       const id = user.id;
-      const { nickName, address, phone } = args;
       try {
         await prisma.user.update({
           where: {

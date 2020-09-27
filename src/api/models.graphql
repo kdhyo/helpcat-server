@@ -24,6 +24,8 @@ type User {
   address: String
   birh: String
   createdAt: DateTime
+  reqServices: [Service!]
+  ansServices: [Service!]
 }
 
 type Service {

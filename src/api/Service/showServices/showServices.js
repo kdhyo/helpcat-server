@@ -1,6 +1,6 @@
 export default {
   Query: {
-    showService: async (_, args, { prisma }) => {
+    showServices: async (_, args, { prisma }) => {
       const services = await prisma.service.findMany({
         orderBy: {
           id: args.orderBy,

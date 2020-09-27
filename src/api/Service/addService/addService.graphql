@@ -6,5 +6,5 @@ type Mutation {
     address: String
     startAt: DateTime
     endAt: DateTime
-  ): Service!
+  ): Boolean!
 }

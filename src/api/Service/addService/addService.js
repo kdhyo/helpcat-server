@@ -12,7 +12,7 @@ export default {
         });
         pubsub.publish("NEW_SERVICE", service);
 
-        return service;
+        return true;
       } catch (error) {
         return new Error(error);
       }

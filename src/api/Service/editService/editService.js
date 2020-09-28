@@ -6,7 +6,7 @@ export default {
       const { id, title, contents, address, price, startAt, endAt } = args;
       try {
         // 존재하는 게시글인지 확인.
-        const service = await prisma.Service.findOne({
+        const service = await prisma.service.findOne({
           where: {
             id,
           },
@@ -15,7 +15,7 @@ export default {
 
         //게시글 아이디와 로그인된 아이디가 같은지 확인
         if (service.reqUserId === userId) {
-          await prisma.Service.update({
+          await prisma.service.update({
             where: { id },
             data: {
               title,

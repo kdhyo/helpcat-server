@@ -10,7 +10,7 @@ export default {
           return new Error("패스워드가 일치하지 않습니다.");
         }
         const password = await bcrypt.hash(newPwd, 10);
-        await prisma.User.update({
+        await prisma.user.update({
           where: { id: user.id },
           data: { password },
         });

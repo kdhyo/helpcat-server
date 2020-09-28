@@ -3,7 +3,7 @@ export default {
     emailAuth: async (_, args, { prisma }) => {
       const { validateEmailToken } = args;
       try {
-        const userCheck = await prisma.User.findOne({
+        const userCheck = await prisma.user.findOne({
           where: {
             validateEmailToken,
           },
@@ -21,7 +21,7 @@ export default {
       }
 
       try {
-        await prisma.User.update({
+        await prisma.user.update({
           where: {
             validateEmailToken: args.validateEmailToken,
           },

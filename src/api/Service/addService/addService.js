@@ -4,7 +4,7 @@ export default {
       const user = isAuthenticated(request.res.req);
       const userId = user.id;
       try {
-        const service = await prisma.Service.create({
+        const service = await prisma.service.create({
           data: {
             ...args,
             reqUser: { connect: { id: userId } },

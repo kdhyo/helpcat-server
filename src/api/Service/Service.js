@@ -1,8 +1,8 @@
 export default {
   Service: {
     reqUser: async ({ id }, __, { prisma }) =>
-      await prisma.Service.findOne({ where: { id } }).reqUser(),
+      await prisma.service.findOne({ where: { id } }).reqUser(),
     ansUser: async ({ id }, __, { prisma }) =>
-      await prisma.Service.findOne({ where: { id } }).ansUser(),
+      await prisma.service.findOne({ where: { id } }).ansUser(),
   },
 };

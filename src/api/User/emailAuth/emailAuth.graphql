@@ -1,0 +1,3 @@
+type Mutation {
+  emailAuth(validateEmailToken: String!): Boolean!
+}

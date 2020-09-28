@@ -6,7 +6,7 @@ export default {
     login: async (_, args, { prisma }) => {
       const { email, password } = args;
 
-      const user = await prisma.user.findOne({
+      const user = await prisma.User.findOne({
         where: {
           email,
         },

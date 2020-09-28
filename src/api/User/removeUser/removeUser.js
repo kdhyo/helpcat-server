@@ -3,7 +3,7 @@ export default {
     removeUser: async (_, __, { request, isAuthenticated, prisma }) => {
       try {
         const user = isAuthenticated(request.res.req);
-        await prisma.user.delete({
+        await prisma.User.delete({
           where: { id: user.id },
         });
 

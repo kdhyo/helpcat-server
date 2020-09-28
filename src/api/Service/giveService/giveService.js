@@ -4,7 +4,7 @@ export default {
       const user = isAuthenticated(request.res.req);
 
       try {
-        const check = await prisma.service.update({
+        const check = await prisma.Service.update({
           where: { id },
           data: {
             progress: true,

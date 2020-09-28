@@ -4,7 +4,7 @@ export default {
       const user = isAuthenticated(request.res.req);
       const id = user.id;
       try {
-        await prisma.user.update({
+        await prisma.User.update({
           where: {
             id,
           },

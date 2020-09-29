@@ -4,15 +4,28 @@ export default {
       const user = isAuthenticated(request.res.req);
 
       try {
-        const check = await prisma.service.update({
+        const check = await prisma.service.findOne({ where: { id } });
+        if (check.ansUserId) return new Error("이미 진행중인 서비스 입니다.");
+
+        const updateService = await prisma.service.update({
           where: { id },
           data: {
-            progress: true,
             ansUser: { connect: { id: user.id } },
           },
         });
 
-        return check;
+        await prisma.room.create({
+          data: {
+            useronroom: {
+              create: [
+                { user: { connect: { id: updateService.reqUserId } } },
+                { user: { connect: { id: updateService.ansUserId } } },
+              ],
+            },
+          },
+        });
+
+        return updateService;
       } catch (error) {
         return new Error(error);
       }

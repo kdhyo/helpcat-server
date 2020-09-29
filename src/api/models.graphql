@@ -23,9 +23,15 @@ type User {
   phone: String
   address: String
   birh: String
+  ratingAvg: Int
+  ratingCount: Int
   createdAt: DateTime
-  reqServices: [Service!]
-  ansServices: [Service!]
+  reqUser: [Service!]
+  ansUser: [Service!]
+  fromTouser: [Message!]
+  toTouser: [Message!]
+  rating: [Rating!]
+  useronroom: [UserOnRoom!]
 }
 
 type Service {
@@ -39,4 +45,36 @@ type Service {
   endAt: DateTime
   reqUser: User
   ansUser: User
+}
+
+type UserOnRoom {
+  id: ID
+  room: [Room!]
+  user: [User!]
+}
+
+type Room {
+  id: ID
+  message: [Message!]
+  UserOnRoom: [UserOnRoom!]
+  createdAt: DateTime
+}
+
+type Message {
+  id: ID
+  text: String
+  form: Int
+  to: Int
+  room: Int
+  fromTouser: User
+  toTouser: User
+  messageToroom: Room
+}
+
+type Rating {
+  id: ID
+  user: User
+  rating: Int
+  revivew: String
+  createdAt: DateTime
 }

@@ -14,6 +14,8 @@ export default {
           },
         });
 
+        console.log(updateService);
+
         await prisma.room.create({
           data: {
             useronroom: {

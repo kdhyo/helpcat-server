@@ -63,7 +63,7 @@ type Room {
 type Message {
   id: ID
   text: String
-  form: Int
+  from: Int
   to: Int
   room: Int
   fromTouser: User

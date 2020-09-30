@@ -49,6 +49,8 @@ type Service {
 
 type UserOnRoom {
   id: ID
+  roomId: Int
+  userId: Int
   room: [Room!]
   user: [User!]
 }

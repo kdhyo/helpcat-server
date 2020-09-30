@@ -1,6 +1,6 @@
 export default {
   Mutation: {
-    sendMessage: async (_, args, { request, isAuthenticated, prisma }) => {
+    sendMessage: async (_, args, { request, isAuthenticated, prisma, pubsub }) => {
       const user = isAuthenticated(request.res.req);
       const { room, message, to } = args;
 
@@ -19,6 +19,7 @@ export default {
             },
           },
         });
+        pubsub.publish(`NEW_MESSAGE${room}`, sendMessage);
 
         return sendMessage;
       } catch (error) {

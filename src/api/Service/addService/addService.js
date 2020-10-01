@@ -1,6 +1,6 @@
 export default {
   Mutation: {
-    addService: async (parent, args, { request, prisma, pubsub, isAuthenticated }, info) => {
+    addService: async (_, args, { request, prisma, pubsub, isAuthenticated }, info) => {
       const user = isAuthenticated(request.res.req);
       const userId = user.id;
       try {

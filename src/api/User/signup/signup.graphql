@@ -8,5 +8,5 @@ type Mutation {
     phone: String!
     address: String!
     birh: String!
-  ): Boolean!
+  ): User!
 }

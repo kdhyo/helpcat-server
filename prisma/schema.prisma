@@ -8,26 +8,24 @@ datasource db {
 }
 
 model user {
-  id                 Int          @id @default(autoincrement())
-  email              String?      @unique
-  emailvalidated     Boolean?     @default(false)
-  validateEmailToken String?      @unique
-  password           String
-  userName           String
-  nickName           String?      @unique
-  gender             String
-  phone              String
-  address            String
-  birh               String
-  ratingAvg          Int?
-  ratingCount        Int          @default(0)
-  createdAt          DateTime     @default(now())
-  fromTouser         message[]    @relation("fromTouser")
-  toTouser           message[]    @relation("toTouser")
-  rating             rating[]
-  ansUser            service[]    @relation("ansUser")
-  reqUser            service[]    @relation("reqUser")
-  useronroom         UserOnRoom[]
+  id          Int          @id @default(autoincrement())
+  email       String?      @unique
+  password    String
+  userName    String
+  nickName    String?      @unique
+  gender      String
+  phone       String
+  address     String
+  birh        String
+  ratingAvg   Int?
+  ratingCount Int          @default(0)
+  createdAt   DateTime     @default(now())
+  fromTouser  message[]    @relation("fromTouser")
+  toTouser    message[]    @relation("toTouser")
+  rating      rating[]
+  ansUser     service[]    @relation("ansUser")
+  reqUser     service[]    @relation("reqUser")
+  useronroom  UserOnRoom[]
 }
 
 model rating {

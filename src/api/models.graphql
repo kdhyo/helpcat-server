@@ -76,8 +76,9 @@ type Message {
 
 type Rating {
   id: ID
+  userId: Int
   user: User
   rating: Int
-  revivew: String
+  review: String
   createdAt: DateTime
 }

@@ -8,7 +8,7 @@ datasource db {
 }
 
 model user {
-  id                 Int          @default(autoincrement()) @id
+  id                 Int          @id @default(autoincrement())
   email              String?      @unique
   emailvalidated     Boolean?     @default(false)
   validateEmailToken String?      @unique
@@ -22,46 +22,19 @@ model user {
   ratingAvg          Int?
   ratingCount        Int          @default(0)
   createdAt          DateTime     @default(now())
-  fromTouser         Message[]    @relation("fromTouser")
-  toTouser           Message[]    @relation("toTouser")
+  fromTouser         message[]    @relation("fromTouser")
+  toTouser           message[]    @relation("toTouser")
   rating             rating[]
   ansUser            service[]    @relation("ansUser")
   reqUser            service[]    @relation("reqUser")
   useronroom         UserOnRoom[]
 }
 
-model UserOnRoom {
-  id     Int  @default(autoincrement()) @id
-  roomId Int
-  userId Int
-  room   room @relation(fields: [roomId], references: [id])
-  user   user @relation(fields: [userId], references: [id])
-
-  @@index([roomId], name: "roomId")
-  @@index([userId], name: "userId")
-}
-
-model Message {
-  id            Int      @default(autoincrement()) @id
-  text          String
-  from          Int
-  to            Int
-  room          Int
-  createdAt     DateTime @default(now())
-  fromTouser    user     @relation("fromTouser", fields: [from], references: [id])
-  messageToroom room     @relation(fields: [room], references: [id])
-  toTouser      user     @relation("toTouser", fields: [to], references: [id])
-
-  @@index([from], name: "from")
-  @@index([room], name: "room")
-  @@index([to], name: "to")
-}
-
 model rating {
-  id        Int      @default(autoincrement()) @id
+  id        Int      @id @default(autoincrement())
   userId    Int
   rating    Int
-  revivew   String
+  review    String
   createdAt DateTime @default(now())
   user      user     @relation(fields: [userId], references: [id])
 
@@ -69,14 +42,14 @@ model rating {
 }
 
 model room {
-  id         Int          @default(autoincrement()) @id
+  id         Int          @id @default(autoincrement())
   createdAt  DateTime     @default(now())
-  message    Message[]
+  message    message[]
   useronroom UserOnRoom[]
 }
 
 model service {
-  id        Int      @default(autoincrement()) @id
+  id        Int      @id @default(autoincrement())
   reqUserId Int
   ansUserId Int?
   title     String
@@ -92,4 +65,31 @@ model service {
 
   @@index([ansUserId], name: "ansUserId")
   @@index([reqUserId], name: "reqUserId")
+}
+
+model message {
+  id            Int      @id @default(autoincrement())
+  text          String
+  from          Int
+  to            Int
+  room          Int
+  createdAt     DateTime @default(now())
+  fromTouser    user     @relation("fromTouser", fields: [from], references: [id])
+  messageToroom room     @relation(fields: [room], references: [id])
+  toTouser      user     @relation("toTouser", fields: [to], references: [id])
+
+  @@index([from], name: "from")
+  @@index([room], name: "room")
+  @@index([to], name: "to")
+}
+
+model UserOnRoom {
+  id     Int  @id @default(autoincrement())
+  roomId Int
+  userId Int
+  room   room @relation(fields: [roomId], references: [id])
+  user   user @relation(fields: [userId], references: [id])
+
+  @@index([roomId], name: "roomId")
+  @@index([userId], name: "userId")
 }

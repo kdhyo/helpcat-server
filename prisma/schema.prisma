@@ -8,7 +8,7 @@ datasource db {
 }
 
 model user {
-  id          Int          @id @default(autoincrement())
+  id          Int          @default(autoincrement()) @id
   email       String?      @unique
   password    String
   userName    String
@@ -20,35 +20,35 @@ model user {
   ratingAvg   Int?
   ratingCount Int          @default(0)
   createdAt   DateTime     @default(now())
-  fromTouser  message[]    @relation("fromTouser")
-  toTouser    message[]    @relation("toTouser")
+  fromTouser  message[]    @relation("message_fromTouser")
+  toTouser    message[]    @relation("message_toTouser")
   rating      rating[]
-  ansUser     service[]    @relation("ansUser")
-  reqUser     service[]    @relation("reqUser")
-  useronroom  UserOnRoom[]
+  ansUser     service[]    @relation("service_ansUserIdTouser")
+  reqUser     service[]    @relation("service_reqUserIdTouser")
+  useronroom  useronroom[]
 }
 
 model rating {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  rating    Int
-  review    String
+  id        Int      @default(autoincrement()) @id
+  userId    Int?
+  rating    Int?
+  review    String?
   createdAt DateTime @default(now())
-  user      user     @relation(fields: [userId], references: [id])
+  user      user?    @relation(fields: [userId], references: [id])
 
   @@index([userId], name: "userId")
 }
 
 model room {
-  id         Int          @id @default(autoincrement())
+  id         Int          @default(autoincrement()) @id
   createdAt  DateTime     @default(now())
   message    message[]
-  useronroom UserOnRoom[]
+  useronroom useronroom[]
 }
 
 model service {
-  id        Int      @id @default(autoincrement())
-  reqUserId Int
+  id        Int      @default(autoincrement()) @id
+  reqUserId Int?
   ansUserId Int?
   title     String
   contents  String
@@ -58,35 +58,35 @@ model service {
   createdAt DateTime @default(now())
   startAt   DateTime @default(now())
   endAt     DateTime @default(now())
-  ansUser   user?    @relation("ansUser", fields: [ansUserId], references: [id])
-  reqUser   user     @relation("reqUser", fields: [reqUserId], references: [id])
+  ansUser   user?    @relation("service_ansUserIdTouser", fields: [ansUserId], references: [id])
+  reqUser   user?    @relation("service_reqUserIdTouser", fields: [reqUserId], references: [id])
 
   @@index([ansUserId], name: "ansUserId")
   @@index([reqUserId], name: "reqUserId")
 }
 
 model message {
-  id            Int      @id @default(autoincrement())
+  id            Int      @default(autoincrement()) @id
   text          String
-  from          Int
-  to            Int
-  room          Int
+  from          Int?
+  to            Int?
+  room          Int?
   createdAt     DateTime @default(now())
-  fromTouser    user     @relation("fromTouser", fields: [from], references: [id])
-  messageToroom room     @relation(fields: [room], references: [id])
-  toTouser      user     @relation("toTouser", fields: [to], references: [id])
+  fromTouser    user?    @relation("message_fromTouser", fields: [from], references: [id])
+  messageToroom room?    @relation(fields: [room], references: [id])
+  toTouser      user?    @relation("message_toTouser", fields: [to], references: [id])
 
   @@index([from], name: "from")
   @@index([room], name: "room")
   @@index([to], name: "to")
 }
 
-model UserOnRoom {
-  id     Int  @id @default(autoincrement())
-  roomId Int
-  userId Int
-  room   room @relation(fields: [roomId], references: [id])
-  user   user @relation(fields: [userId], references: [id])
+model useronroom {
+  id     Int   @default(autoincrement()) @id
+  roomId Int?
+  userId Int?
+  room   room? @relation(fields: [roomId], references: [id])
+  user   user? @relation(fields: [userId], references: [id])
 
   @@index([roomId], name: "roomId")
   @@index([userId], name: "userId")

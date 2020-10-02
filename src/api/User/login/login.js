@@ -16,7 +16,9 @@ export default {
       const pwdCheck = await bcrypt.compare(password, user.password);
       if (!pwdCheck) return new Error("비밀번호가 올바르지 않습니다.");
 
-      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: "1 days",
+      });
       return {
         token,
         user,

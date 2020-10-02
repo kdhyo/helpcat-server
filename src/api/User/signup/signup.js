@@ -14,7 +14,9 @@ export default {
           },
         });
 
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+          expiresIn: "1 days",
+        });
 
         return {
           token,

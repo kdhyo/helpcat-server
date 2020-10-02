@@ -13,7 +13,12 @@ export default {
           },
         });
 
-        return user;
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+
+        return {
+          token,
+          user,
+        };
       } catch (error) {
         return error;
       }

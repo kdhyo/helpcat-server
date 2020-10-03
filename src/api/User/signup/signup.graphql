@@ -7,8 +7,8 @@ type Mutation {
     gender: String!
     phone: String!
     address: String!
-    birh: String!
+    birth: String!
     lat: Float!
-    long: Float!
+    lon: Float!
   ): AuthPayload!
 }

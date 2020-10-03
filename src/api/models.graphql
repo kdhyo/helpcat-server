@@ -23,8 +23,8 @@ type User {
   phone: String
   address: String
   lat: Float
-  long: Float
-  birh: String
+  lon: Float
+  birth: String
   ratingAvg: Float
   ratingCount: Int
   createdAt: DateTime

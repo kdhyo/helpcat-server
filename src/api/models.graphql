@@ -22,8 +22,10 @@ type User {
   gender: String
   phone: String
   address: String
+  lat: Float
+  long: Float
   birh: String
-  ratingAvg: Int
+  ratingAvg: Float
   ratingCount: Int
   createdAt: DateTime
   reqUser: [Service!]
@@ -78,7 +80,7 @@ type Rating {
   id: ID
   userId: Int
   user: User
-  rating: Int
+  rating: Float
   review: String
   createdAt: DateTime
 }

@@ -1,0 +1,3 @@
+type Mutation {
+  detailService(serviceId: Int!): Service!
+}

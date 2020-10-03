@@ -15,7 +15,7 @@
 **passport / passport-jwt**미들웨어를 사용한 인증 구현  
 **bcryptjs / crypto** 통한 암호화기법 적용  
 **nodemailer** / **bcryptjs** 를 활용한 랜덤문자 전송을 통한 이메일인증 구현  
-**merge-graphql-schemas** / **path** / **graphql-tools** 를 사용한 디렉토리 정리
+**merge-graphql-schemas** / **path** / **graphql-tools** 를 사용한 디렉토리 정리  
 **Graphql-yoga - pubsub**를 활용한 신규 서비스 데이터 저장 및 전송
 
 ### resolvers 구현 목록

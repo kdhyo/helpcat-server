@@ -70,7 +70,6 @@ type UserOnRoom {
 
 type Room {
   id: ID
-  roomId: Int
   message: [Message!]
   UserOnRoom: [UserOnRoom!]
   createdAt: DateTime

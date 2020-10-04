@@ -6,8 +6,8 @@ export default {
       try {
         const rooms = await prisma.room.findMany({
           where: {
-            user: {
-              connect: { id: user.id },
+            useronroom: {
+              some: { user: { id: user.id } },
             },
           },
         });

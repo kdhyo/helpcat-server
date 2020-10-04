@@ -16,5 +16,11 @@ export default {
         where: { id: userId },
       });
     },
+    room: async ({ roomId }, __, { prisma }) => {
+      console.log(roomId);
+      return await prisma.room.findOne({
+        where: { id: roomId },
+      });
+    },
   },
 };

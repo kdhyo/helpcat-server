@@ -57,7 +57,7 @@ type Service {
   reqUser: User
   ansUser: User
   createdAt: DateTime
-  imgFiles: [ServiceImgFiles]
+  serviceimgfiles: [ServiceImgFiles]
 }
 
 type UserOnRoom {

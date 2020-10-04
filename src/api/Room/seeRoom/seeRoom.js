@@ -4,7 +4,7 @@ export default {
       const user = isAuthenticated(request.res.req);
       const { roomId } = args;
       try {
-        const check = await prisma.userOnRoom.count({
+        const check = await prisma.useronroom.count({
           where: {
             AND: [
               {

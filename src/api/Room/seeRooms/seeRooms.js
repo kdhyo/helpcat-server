@@ -4,7 +4,7 @@ export default {
       const user = isAuthenticated(request.res.req);
 
       try {
-        const rooms = await prisma.userOnRoom.findMany({
+        const rooms = await prisma.useronroom.findMany({
           where: { userId: user.id },
         });
 

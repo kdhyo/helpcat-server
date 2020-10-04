@@ -3,7 +3,7 @@ export default {
     editService: async (_, args, { prisma, isAuthenticated, request }) => {
       const user = isAuthenticated(request.res.req);
       const userId = user.id;
-      const { id, title, contents, address, price, startAt, endAt } = args;
+      const { title, contents, price, address1, address2, lat, lon, startAt, endAt } = args;
       try {
         // 존재하는 게시글인지 확인.
         const service = await prisma.service.findOne({
@@ -20,8 +20,11 @@ export default {
             data: {
               title,
               contents,
-              address,
               price,
+              address1,
+              address2,
+              lat,
+              lon,
               startAt,
               endAt,
             },

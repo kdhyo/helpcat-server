@@ -6,6 +6,7 @@
   "dependencies": {
     "@prisma/cli": "^2.6.2",
     "@prisma/client": "^2.6.2",
+    "aws-sdk": "^2.766.0",
     "babel-cli": "^6.26.0",
     "babel-node": "^0.0.1-security",
     "babel-preset-env": "^1.7.0",
@@ -19,6 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "merge-graphql-schemas": "^1.7.8",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "nodemailer": "^6.4.11",
     "nodemon": "^2.0.4",
     "passport": "^0.4.1",

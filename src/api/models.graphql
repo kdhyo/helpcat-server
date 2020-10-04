@@ -11,6 +11,11 @@ type AuthPayload {
   user: User
 }
 
+type ServiceDetail {
+  service: Service
+  serviceImgFiles: [ServiceImgFiles]
+}
+
 type User {
   id: ID!
   email: Email!
@@ -21,7 +26,8 @@ type User {
   nickName: String
   gender: String
   phone: String
-  address: String
+  address1: String
+  address2: String
   lat: Float
   lon: Float
   birth: String
@@ -40,13 +46,18 @@ type Service {
   id: ID
   title: String
   contents: String
-  address: String
+  address1: String
+  address2: String
+  lat: Float
+  lon: Float
   price: Int
   progress: Boolean
   startAt: DateTime
   endAt: DateTime
   reqUser: User
   ansUser: User
+  createdAt: DateTime
+  imgFiles: [ServiceImgFiles]
 }
 
 type UserOnRoom {
@@ -74,6 +85,7 @@ type Message {
   fromTouser: User
   toTouser: User
   messageToroom: Room
+  createdAt: DateTime
 }
 
 type Rating {
@@ -83,4 +95,10 @@ type Rating {
   rating: Float
   review: String
   createdAt: DateTime
+}
+
+type ServiceImgFiles {
+  id: ID
+  serviceId: Int
+  imglink: String
 }

@@ -4,7 +4,10 @@ type Mutation {
     title: String!
     contents: String!
     price: Int!
-    address: String!
+    address1: String
+    address2: String
+    lat: Float
+    lon: Float
     startAt: DateTime!
     endAt: DateTime!
   ): Boolean!

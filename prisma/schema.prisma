@@ -15,7 +15,8 @@ model user {
   nickName    String?      @unique
   gender      String
   phone       String
-  address     String
+  address1    String
+  address2    String?
   lat         Float?
   lon         Float?
   birth       String
@@ -49,19 +50,23 @@ model room {
 }
 
 model service {
-  id        Int      @id @default(autoincrement())
-  reqUserId Int?
-  ansUserId Int?
-  title     String
-  contents  String
-  address   String
-  price     Int
-  progress  Boolean? @default(false)
-  createdAt DateTime @default(now())
-  startAt   DateTime @default(now())
-  endAt     DateTime @default(now())
-  ansUser   user?    @relation("service_ansUserIdTouser", fields: [ansUserId], references: [id])
-  reqUser   user?    @relation("service_reqUserIdTouser", fields: [reqUserId], references: [id])
+  id              Int               @id @default(autoincrement())
+  reqUserId       Int?
+  ansUserId       Int?
+  title           String
+  contents        String
+  address1        String
+  address2        String?
+  lat             Float?
+  lon             Float?
+  price           Int
+  progress        Boolean?          @default(false)
+  createdAt       DateTime          @default(now())
+  startAt         DateTime          @default(now())
+  endAt           DateTime          @default(now())
+  ansUser         user?             @relation("service_ansUserIdTouser", fields: [ansUserId], references: [id])
+  reqUser         user?             @relation("service_reqUserIdTouser", fields: [reqUserId], references: [id])
+  serviceimgfiles serviceimgfiles[]
 
   @@index([ansUserId], name: "ansUserId")
   @@index([reqUserId], name: "reqUserId")
@@ -92,4 +97,13 @@ model useronroom {
 
   @@index([roomId], name: "roomId")
   @@index([userId], name: "userId")
+}
+
+model serviceimgfiles {
+  id        Int      @id @default(autoincrement())
+  serviceId Int?
+  imglink   String
+  service   service? @relation(fields: [serviceId], references: [id])
+
+  @@index([serviceId], name: "serviceId")
 }

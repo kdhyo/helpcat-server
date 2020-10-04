@@ -6,7 +6,8 @@ type Mutation {
     nickName: String!
     gender: String!
     phone: String!
-    address: String!
+    address1: String!
+    address2: String!
     birth: String!
     lat: Float!
     lon: Float!

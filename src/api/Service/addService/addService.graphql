@@ -2,8 +2,12 @@ type Mutation {
   addService(
     title: String!
     contents: String!
-    price: Int
-    address: String
+    price: Int!
+    address1: String
+    address2: String
+    lat: Float
+    lon: Float
+    imgFiles: [String]
     startAt: DateTime
     endAt: DateTime
   ): Boolean!

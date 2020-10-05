@@ -11,9 +11,9 @@ export default {
         address2,
         lat,
         lon,
+        imgFiles,
         startAt,
         endAt,
-        imgFiles,
       } = args;
 
       try {

@@ -3,7 +3,18 @@ export default {
     editService: async (_, args, { prisma, isAuthenticated, request }) => {
       const user = isAuthenticated(request.res.req);
       const userId = user.id;
-      const { title, contents, price, address1, address2, lat, lon, startAt, endAt } = args;
+      const {
+        title,
+        contents,
+        price,
+        address1,
+        address2,
+        lat,
+        lon,
+        imgFiles,
+        startAt,
+        endAt,
+      } = args;
       try {
         // 존재하는 게시글인지 확인.
         const service = await prisma.service.findOne({
@@ -29,6 +40,15 @@ export default {
               endAt,
             },
           });
+
+          // 삭제할 이미지 있으면 삭제
+          if (imgFiles) {
+            imgFiles.forEach(async (imglink) => {
+              await prisma.serviceimgfiles.delete({
+                where: { imglink },
+              });
+            });
+          }
           return true;
         } else {
           return new Error("게시글 작성자가 아닙니다.");

@@ -1,6 +1,6 @@
 # HELPCAT SERVER
 
-#### - 2020/10/04
+#### - 2020/10/06
 
 ### 사용 목록
 
@@ -16,7 +16,8 @@
 **bcryptjs / crypto** 통한 암호화기법 적용  
 **nodemailer** / **bcryptjs** 를 활용한 랜덤문자 전송을 통한 이메일인증 구현  
 **merge-graphql-schemas** / **path** / **graphql-tools** 를 사용한 디렉토리 정리  
-**Graphql-yoga - pubsub**를 활용한 신규 서비스 데이터 저장 및 전송
+**Graphql-yoga - pubsub**를 활용한 신규 서비스 데이터 저장 및 전송  
+**multer multer-s3 aws-sdk path** 사용하여 aws s3에 이미지 업로드
 
 ### resolvers 구현 목록
 

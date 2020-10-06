@@ -4,6 +4,7 @@ export default {
       const user = isAuthenticated(request.res.req);
       const userId = user.id;
       const {
+        id,
         title,
         contents,
         price,
@@ -15,6 +16,7 @@ export default {
         startAt,
         endAt,
       } = args;
+
       try {
         // 존재하는 게시글인지 확인.
         const service = await prisma.service.findOne({

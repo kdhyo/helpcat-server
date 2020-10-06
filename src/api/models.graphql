@@ -36,8 +36,8 @@ type User {
   createdAt: DateTime
   reqUser: [Service!]
   ansUser: [Service!]
-  rating_ansUser: [Rating!]
   rating_reqUser: [Rating!]
+  rating_ansUser: [Rating!]
   fromTouser: [Message!]
   toTouser: [Message!]
   rating: [Rating!]

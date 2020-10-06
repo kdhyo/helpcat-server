@@ -12,7 +12,8 @@ export default {
         address2,
         lat,
         lon,
-        imgFiles,
+        removeImgs,
+        addImgs,
         startAt,
         endAt,
       } = args;
@@ -44,13 +45,28 @@ export default {
           });
 
           // 삭제할 이미지 있으면 삭제
-          if (imgFiles) {
-            imgFiles.forEach(async (imglink) => {
+          if (removeImgs) {
+            removeImgs.forEach(async (imglink) => {
               await prisma.serviceimgfiles.delete({
                 where: { imglink },
               });
             });
           }
+
+          //추가할 이미지 있으면 추가
+          if (addImgs) {
+            addImgs.forEach(async (imglink) => {
+              await prisma.serviceimgfiles.create({
+                data: {
+                  service: {
+                    connect: { id: service.id },
+                  },
+                  imglink,
+                },
+              });
+            });
+          }
+
           return true;
         } else {
           return new Error("게시글 작성자가 아닙니다.");

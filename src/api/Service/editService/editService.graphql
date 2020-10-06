@@ -8,7 +8,8 @@ type Mutation {
     address2: String
     lat: Float
     lon: Float
-    imgFiles: [String!]
+    removeImgs: [String!]
+    addImgs: [String!]
     startAt: DateTime
     endAt: DateTime
   ): Boolean!

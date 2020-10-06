@@ -34,13 +34,13 @@ export default {
 
         // 이미지가 있을 시 이미지 저장
         if (imgFiles) {
-          imgFiles.forEach(async (img) => {
+          imgFiles.forEach(async (imglink) => {
             await prisma.serviceimgfiles.create({
               data: {
                 service: {
                   connect: { id: service.id },
                 },
-                imglink: img,
+                imglink,
               },
             });
           });

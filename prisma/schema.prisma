@@ -111,7 +111,7 @@ model useronroom {
 model serviceimgfiles {
   id        Int      @id @default(autoincrement())
   serviceId Int?
-  imglink   String?
+  imglink   String?  @unique
   createdAt DateTime @default(now())
   service   service? @relation(fields: [serviceId], references: [id])
 

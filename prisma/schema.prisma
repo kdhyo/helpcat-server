@@ -8,38 +8,45 @@ datasource db {
 }
 
 model user {
-  id          Int          @id @default(autoincrement())
-  email       String?      @unique
-  password    String
-  userName    String
-  nickName    String?      @unique
-  gender      String
-  phone       String
-  address1    String
-  address2    String?
-  lat         Float?
-  lon         Float?
-  birth       String
-  ratingAvg   Float?
-  ratingCount Int          @default(0)
-  createdAt   DateTime     @default(now())
-  fromTouser  message[]    @relation("message_fromTouser")
-  toTouser    message[]    @relation("message_toTouser")
-  rating      rating[]
-  ansUser     service[]    @relation("service_ansUserIdTouser")
-  reqUser     service[]    @relation("service_reqUserIdTouser")
-  useronroom  useronroom[]
+  id             Int          @id @default(autoincrement())
+  email          String?      @unique
+  password       String
+  userName       String
+  nickName       String?      @unique
+  gender         String
+  phone          String
+  address1       String
+  address2       String?
+  lat            Float?
+  lon            Float?
+  birth          String
+  ratingAvg      Float?
+  ratingCount    Int          @default(0)
+  createdAt      DateTime     @default(now())
+  fromTouser     message[]    @relation("message_fromTouser")
+  toTouser       message[]    @relation("message_toTouser")
+  rating_ansUser rating[]     @relation("rating_ansUserIdTouser")
+  rating_reqUser rating[]     @relation("rating_reqUserIdTouser")
+  ansUser        service[]    @relation("service_ansUserIdTouser")
+  reqUser        service[]    @relation("service_reqUserIdTouser")
+  useronroom     useronroom[]
 }
 
 model rating {
-  id        Int      @id @default(autoincrement())
-  userId    Int?
-  rating    Float?
-  review    String?
-  createdAt DateTime @default(now())
-  user      user?    @relation(fields: [userId], references: [id])
+  id             Int      @id @default(autoincrement())
+  reqUserId      Int?
+  ansUserId      Int?
+  serviceId      Int?
+  rating         Float?
+  review         String?
+  createdAt      DateTime @default(now())
+  rating_ansUser user?    @relation("rating_ansUserIdTouser", fields: [ansUserId], references: [id])
+  rating_reqUser user?    @relation("rating_reqUserIdTouser", fields: [reqUserId], references: [id])
+  service        service? @relation(fields: [serviceId], references: [id])
 
-  @@index([userId], name: "userId")
+  @@index([ansUserId], name: "ansUserId")
+  @@index([reqUserId], name: "reqUserId")
+  @@index([serviceId], name: "serviceId")
 }
 
 model room {
@@ -66,6 +73,7 @@ model service {
   endAt           DateTime          @default(now())
   ansUser         user?             @relation("service_ansUserIdTouser", fields: [ansUserId], references: [id])
   reqUser         user?             @relation("service_reqUserIdTouser", fields: [reqUserId], references: [id])
+  rating          rating[]
   serviceimgfiles serviceimgfiles[]
 
   @@index([ansUserId], name: "ansUserId")
@@ -89,11 +97,12 @@ model message {
 }
 
 model useronroom {
-  id     Int   @id @default(autoincrement())
-  roomId Int?
-  userId Int?
-  room   room? @relation(fields: [roomId], references: [id])
-  user   user? @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  roomId    Int?
+  userId    Int?
+  createdAt DateTime @default(now())
+  room      room?    @relation(fields: [roomId], references: [id])
+  user      user?    @relation(fields: [userId], references: [id])
 
   @@index([roomId], name: "roomId")
   @@index([userId], name: "userId")
@@ -102,7 +111,8 @@ model useronroom {
 model serviceimgfiles {
   id        Int      @id @default(autoincrement())
   serviceId Int?
-  imglink   String
+  imglink   String?
+  createdAt DateTime @default(now())
   service   service? @relation(fields: [serviceId], references: [id])
 
   @@index([serviceId], name: "serviceId")

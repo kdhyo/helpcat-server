@@ -36,6 +36,8 @@ type User {
   createdAt: DateTime
   reqUser: [Service!]
   ansUser: [Service!]
+  rating_ansUser: [Rating!]
+  rating_reqUser: [Rating!]
   fromTouser: [Message!]
   toTouser: [Message!]
   rating: [Rating!]
@@ -56,6 +58,7 @@ type Service {
   endAt: DateTime
   reqUser: User
   ansUser: User
+  rating: Rating
   createdAt: DateTime
   serviceimgfiles: [ServiceImgFiles]
 }
@@ -89,8 +92,11 @@ type Message {
 
 type Rating {
   id: ID
-  userId: Int
-  user: User
+  ansUserId: Int
+  reqUserId: Int
+  rating_reqUser: User
+  rating_ansUser: User
+  service: Service
   rating: Float
   review: String
   createdAt: DateTime

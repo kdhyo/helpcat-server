@@ -94,6 +94,7 @@ type Rating {
   id: ID
   ansUserId: Int
   reqUserId: Int
+  serviceId: Int
   rating_reqUser: User
   rating_ansUser: User
   service: Service

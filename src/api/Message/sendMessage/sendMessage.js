@@ -5,7 +5,7 @@ export default {
       const { room, message, to } = args;
 
       try {
-        const sendMessage = await prisma.message.create({
+        const newMessage = await prisma.message.create({
           data: {
             text: message,
             fromTouser: {
@@ -19,9 +19,11 @@ export default {
             },
           },
         });
-        pubsub.publish(`NEW_MESSAGE${room}`, sendMessage);
 
-        return sendMessage;
+        pubsub.publish("NEW_MESSAGE", { roomId: room, newMessage });
+
+        // pubsub.publish(NEW_MESSAGE, {roomId:senderId < receiverId ? senderId + receiverId : receiverId + senderId, newMessage});
+        return newMessage;
       } catch (error) {
         return error;
       }

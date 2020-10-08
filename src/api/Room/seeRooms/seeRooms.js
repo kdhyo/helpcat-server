@@ -4,8 +4,12 @@ export default {
       const user = isAuthenticated(request.res.req);
 
       try {
-        const rooms = await prisma.userOnRoom.findMany({
-          where: { userId: user.id },
+        const rooms = await prisma.room.findMany({
+          where: {
+            useronroom: {
+              some: { user: { id: user.id } },
+            },
+          },
         });
 
         if (!rooms) return new Error("채팅방 정보가 존재하지 않습니다.");

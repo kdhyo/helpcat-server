@@ -1,3 +1,10 @@
 type Mutation {
-  editUser(nickName: String!, address: String!, phone: String!): Boolean!
+  editUser(
+    nickName: String!
+    address1: String!
+    address2: String!
+    lat: Float!
+    lon: Float!
+    phone: String!
+  ): Boolean!
 }

@@ -1,7 +1,7 @@
 export default {
   Room: {
-    UserOnRoom: async ({ roomId }, __, { prisma }) => {
-      const users = await prisma.userOnRoom.findMany({ where: { roomId } });
+    UserOnRoom: async ({ id }, __, { prisma }) => {
+      const users = await prisma.useronroom.findMany({ where: { roomId: id } });
       // console.log(users);
       return users;
     },
@@ -14,6 +14,12 @@ export default {
       console.log(userId);
       return await prisma.user.findMany({
         where: { id: userId },
+      });
+    },
+    room: async ({ roomId }, __, { prisma }) => {
+      console.log(roomId);
+      return await prisma.room.findOne({
+        where: { id: roomId },
       });
     },
   },

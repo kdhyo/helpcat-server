@@ -1,6 +1,6 @@
 # HELPCAT SERVER
 
-#### - 2020/10/02
+#### - 2020/10/06
 
 ### 사용 목록
 
@@ -16,7 +16,8 @@
 **bcryptjs / crypto** 통한 암호화기법 적용  
 **nodemailer** / **bcryptjs** 를 활용한 랜덤문자 전송을 통한 이메일인증 구현  
 **merge-graphql-schemas** / **path** / **graphql-tools** 를 사용한 디렉토리 정리  
-**Graphql-yoga - pubsub**를 활용한 신규 서비스 데이터 저장 및 전송
+**Graphql-yoga - pubsub**를 활용한 신규 서비스 데이터 저장 및 전송  
+**multer multer-s3 aws-sdk path** 사용하여 aws s3에 이미지 업로드
 
 ### resolvers 구현 목록
 
@@ -29,6 +30,7 @@
 - 서비스 글 OrderBy 설정 추가
 - 1:1 채팅방 조회
 - 유저 개인이 포함되어 있는 채팅방 전부 조회
+- 하나의 서비스 정보 불러오기
 ```
 
 #### Mutation
@@ -45,6 +47,7 @@
 - 채팅메세지 전송
 - 서비스 완료 시 DB데이터 변경
 - 서비스 후기 시스템
+- aws s3 연동을 통한 서비스 등록 시 이미지 업로드 추가
 ```
 
 #### Subscription
@@ -59,5 +62,4 @@
 ```
 - 페이스북, 카카오, 구글 로그인 인증
 - 클라이언트(회원가입 시 도로명 api 활용하기)
-- 게시판 등록 시 이미지 등록
 ```

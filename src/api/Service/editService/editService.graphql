@@ -4,8 +4,13 @@ type Mutation {
     title: String!
     contents: String!
     price: Int!
-    address: String!
-    startAt: DateTime!
-    endAt: DateTime!
+    address1: String
+    address2: String
+    lat: Float
+    lon: Float
+    removeImgs: [String!]
+    addImgs: [String!]
+    startAt: DateTime
+    endAt: DateTime
   ): Boolean!
 }

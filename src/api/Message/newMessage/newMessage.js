@@ -1,14 +1,11 @@
+import { withFilter } from "graphql-yoga";
 export default {
   Subscription: {
     newMessage: {
-      subscribe: (_, args, { pubsub, prisma }) => {
-        const { roomId } = args;
-        return pubsub.asyncIterator(`NEW_MESSAGE${roomId}`);
-      },
-      resolve: (payload, args, context) => {
-        console.log(args, context);
-        return payload;
-      },
+      subscribe: withFilter(
+        (_, __, { pubsub }) => pubsub.asyncIterator("NEW_MESSAGE"),
+        (payload, args) => payload.roomId === args.roomId
+      ),
     },
   },
 };

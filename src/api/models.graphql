@@ -1,7 +1,7 @@
 scalar DateTime
 scalar Email
 
-enum ServiceOrderBy {
+enum Sort {
   asc
   desc
 }
@@ -9,6 +9,11 @@ enum ServiceOrderBy {
 type AuthPayload {
   token: String
   user: User
+}
+
+type ServiceDetail {
+  service: Service
+  serviceImgFiles: [ServiceImgFiles]
 }
 
 type User {
@@ -21,15 +26,18 @@ type User {
   nickName: String
   gender: String
   phone: String
-  address: String
+  address1: String
+  address2: String
   lat: Float
-  long: Float
-  birh: String
+  lon: Float
+  birth: String
   ratingAvg: Float
   ratingCount: Int
   createdAt: DateTime
   reqUser: [Service!]
   ansUser: [Service!]
+  rating_reqUser: [Rating!]
+  rating_ansUser: [Rating!]
   fromTouser: [Message!]
   toTouser: [Message!]
   rating: [Rating!]
@@ -40,13 +48,19 @@ type Service {
   id: ID
   title: String
   contents: String
-  address: String
+  address1: String
+  address2: String
+  lat: Float
+  lon: Float
   price: Int
   progress: Boolean
   startAt: DateTime
   endAt: DateTime
   reqUser: User
   ansUser: User
+  rating: Rating
+  createdAt: DateTime
+  serviceimgfiles: [ServiceImgFiles]
 }
 
 type UserOnRoom {
@@ -59,7 +73,6 @@ type UserOnRoom {
 
 type Room {
   id: ID
-  roomId: Int
   message: [Message!]
   UserOnRoom: [UserOnRoom!]
   createdAt: DateTime
@@ -74,13 +87,24 @@ type Message {
   fromTouser: User
   toTouser: User
   messageToroom: Room
+  createdAt: DateTime
 }
 
 type Rating {
   id: ID
-  userId: Int
-  user: User
+  ansUserId: Int
+  reqUserId: Int
+  serviceId: Int
+  rating_reqUser: User
+  rating_ansUser: User
+  service: Service
   rating: Float
   review: String
   createdAt: DateTime
+}
+
+type ServiceImgFiles {
+  id: ID
+  serviceId: Int
+  imglink: String
 }

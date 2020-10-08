@@ -68,8 +68,10 @@ type UserOnRoom {
   id: ID
   roomId: Int
   userId: Int
+  serviceId: Int
   room: [Room!]
   user: [User!]
+  service: Service
 }
 
 type Room {

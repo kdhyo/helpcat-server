@@ -76,6 +76,7 @@ model service {
   reqUser         user?             @relation("service_reqUserIdTouser", fields: [reqUserId], references: [id])
   rating          rating[]
   serviceimgfiles serviceimgfiles[]
+  useronroom      useronroom[]
 
   @@index([ansUserId], name: "ansUserId")
   @@index([reqUserId], name: "reqUserId")
@@ -101,11 +102,14 @@ model useronroom {
   id        Int      @id @default(autoincrement())
   roomId    Int?
   userId    Int?
+  serviceId Int?
   createdAt DateTime @default(now())
   room      room?    @relation(fields: [roomId], references: [id])
+  service   service? @relation(fields: [serviceId], references: [id])
   user      user?    @relation(fields: [userId], references: [id])
 
   @@index([roomId], name: "roomId")
+  @@index([serviceId], name: "serviceId")
   @@index([userId], name: "userId")
 }
 

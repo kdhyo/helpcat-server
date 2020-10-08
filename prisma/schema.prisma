@@ -22,6 +22,7 @@ model user {
   birth          String
   ratingAvg      Float?
   ratingCount    Int          @default(0)
+  alarm          Boolean?     @default(false)
   createdAt      DateTime     @default(now())
   fromTouser     message[]    @relation("message_fromTouser")
   toTouser       message[]    @relation("message_toTouser")

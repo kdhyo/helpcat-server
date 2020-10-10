@@ -1,5 +1,5 @@
 export default {
-  Mutation: {
+  Query: {
     detailService: async (_, { serviceId }, { prisma }) => {
       try {
         const service = await prisma.service.findOne({

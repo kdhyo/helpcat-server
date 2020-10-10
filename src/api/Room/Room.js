@@ -22,5 +22,11 @@ export default {
         where: { id: roomId },
       });
     },
+    service: async ({ serviceId }, __, { prisma }) => {
+      console.log(serviceId);
+      return await prisma.service.findOne({
+        where: { id: serviceId },
+      });
+    },
   },
 };

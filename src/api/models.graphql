@@ -31,6 +31,7 @@ type User {
   lat: Float
   lon: Float
   birth: String
+  alarm: Boolean
   ratingAvg: Float
   ratingCount: Int
   createdAt: DateTime
@@ -67,8 +68,10 @@ type UserOnRoom {
   id: ID
   roomId: Int
   userId: Int
+  serviceId: Int
   room: [Room!]
   user: [User!]
+  service: Service
 }
 
 type Room {

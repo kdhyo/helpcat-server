@@ -20,8 +20,14 @@ export default {
           data: {
             useronroom: {
               create: [
-                { user: { connect: { id: updateService.reqUserId } } },
-                { user: { connect: { id: updateService.ansUserId } } },
+                {
+                  user: { connect: { id: updateService.reqUserId } },
+                  service: { connect: { id } },
+                },
+                {
+                  user: { connect: { id: updateService.ansUserId } },
+                  service: { connect: { id } },
+                },
               ],
             },
           },

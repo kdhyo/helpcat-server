@@ -12,8 +12,8 @@ export default {
         address2,
         lat,
         lon,
-        removeImgs,
         addImgs,
+        removeImgs,
         startAt,
         endAt,
       } = args;
@@ -44,15 +44,6 @@ export default {
             },
           });
 
-          // 삭제할 이미지 있으면 삭제
-          if (removeImgs) {
-            removeImgs.forEach(async (imglink) => {
-              await prisma.serviceimgfiles.delete({
-                where: { imglink },
-              });
-            });
-          }
-
           //추가할 이미지 있으면 추가
           if (addImgs) {
             addImgs.forEach(async (imglink) => {
@@ -63,6 +54,15 @@ export default {
                   },
                   imglink,
                 },
+              });
+            });
+          }
+          
+          // 삭제할 이미지 있으면 삭제
+          if (removeImgs) {
+            removeImgs.forEach(async (imglink) => {
+              await prisma.serviceimgfiles.delete({
+                where: { imglink },
               });
             });
           }

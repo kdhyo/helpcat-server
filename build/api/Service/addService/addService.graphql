@@ -1,6 +1,5 @@
 type Mutation {
-  editService(
-    id: Int!
+  addService(
     title: String!
     contents: String!
     price: Int!
@@ -8,8 +7,7 @@ type Mutation {
     address2: String
     lat: Float
     lon: Float
-    addImgs: [String]
-    removeImgs: [String]
+    imgFiles: [String!]
     startAt: DateTime
     endAt: DateTime
   ): Boolean!

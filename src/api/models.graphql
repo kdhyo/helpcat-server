@@ -31,7 +31,6 @@ type User {
   lat: Float
   lon: Float
   birth: String
-  alarm: Boolean
   ratingAvg: Float
   ratingCount: Int
   createdAt: DateTime

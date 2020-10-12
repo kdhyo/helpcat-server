@@ -1,3 +1,0 @@
-type Mutation {
-  editPwd(oldPwd: String, newPwd: String!): Boolean!
-}

@@ -20,6 +20,7 @@ model user {
   lat            Float?
   lon            Float?
   birth          String
+  alarm          Boolean?
   ratingAvg      Float?
   ratingCount    Int          @default(0)
   createdAt      DateTime     @default(now())

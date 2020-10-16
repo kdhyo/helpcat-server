@@ -1,6 +1,8 @@
 # HELPCAT SERVER
 
-#### - 2020/10/12
+### - 2020/10/16 작성
+
+#### - 프론트엔드(https://github.com/wldbf97/helpcat)
 
 ### 사용 목록
 
@@ -18,6 +20,7 @@
 **merge-graphql-schemas** / **path** / **graphql-tools** 를 사용한 디렉토리 정리  
 **Graphql-yoga - pubsub**를 활용한 신규 서비스 데이터 저장 및 전송  
 **multer multer-s3 aws-sdk path** 사용하여 aws s3에 이미지 업로드
+**AWS RDS** 사용한 MySQL 호스팅 사용
 
 ### resolvers 구현 목록
 
@@ -52,6 +55,7 @@
 - 서비스 완료 시 DB데이터 변경
 - 서비스 후기 시스템 구축
 - aws s3 연동을 통한 서비스 등록 시 이미지 업로드 추가
+- 알람기능 on/off 추가
 ```
 
 #### Subscription
@@ -59,4 +63,16 @@
 ```
 - Service 추가된 데이터 실시간 받기
 - 채팅방 별 Message 데이터 실시간 받기
+```
+
+### 실행순서
+
+```
+1. Mysql 'helpcat' 데이터베이스 생성
+2. ./prisma/helpcat.sql 테이블 추가
+3. ./prisma/example.env 내용 수정 및 파일명 .env 변경
+4. root 안에 있는 example.env 내용 수정 및 파일명 .env 변경
+5. 'yarn' 을 통한 패키지 설치
+6. npx prisma introspect / npx prisma generate 순으로 prisma 셋팅
+7. yarn run dev
 ```
